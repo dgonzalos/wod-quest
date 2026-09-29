@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+p {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.875rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-pending-bg);
+  color: var(--color-pending-text);
+}
+
+.card.completed {
+  border: 2px solid var(--color-completed);
+}
+
+.card.completed h3,
+.card.completed p {
+  color: var(--color-text-muted);
+}
+
+.card.completed .badge {
+  background: var(--color-completed-bg);
+  color: var(--color-completed);
+}

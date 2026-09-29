@@ -1,0 +1,11 @@
+<article class="card" [class.completed]="quest().state === 'completed'">
+  <h3>{{ quest().title }}</h3>
+  <p>{{ quest().originalWod }}</p>
+  <span class="badge">
+    @if (quest().state === 'pending') {
+      ⏳ Pendiente
+    } @else {
+      ✅ Completada
+    }
+  </span>
+</article>

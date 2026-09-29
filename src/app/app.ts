@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('wod-quest-a');
+  protected readonly title = signal('WOD Quest');
 }

@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FACTION_LABELS, type Character, type Quest } from './core/models';
 import { QuestCard } from './shared/quest-card/quest-card';
+import { Theme } from './core/theme';
 
 @Component({
   imports: [RouterOutlet, QuestCard],
@@ -23,4 +24,5 @@ export class App {
     { id: 'isabel', title: 'Isabel', originalWod: '30 Snatches for time', state: 'pending' },
     { id: 'fran', title: 'Fran', originalWod: '21-15-9 thrusters y pull-ups', state: 'completed' },
   ];
+  protected readonly theme = inject(Theme);
 }

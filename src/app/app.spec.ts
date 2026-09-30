@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { within } from '@testing-library/dom';
 import { App } from './app';
 
 describe('App', () => {
@@ -6,6 +7,8 @@ describe('App', () => {
     await TestBed.configureTestingModule({
       imports: [App],
     }).compileComponents();
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.removeItem('theme-preference');
   });
 
   it('should create the app', () => {
@@ -30,10 +33,24 @@ describe('App', () => {
     expect(dl).not.toContain('alliance');
   });
 
-  it('should render one list item per quest', async () => {
+  it('should render a single list with one item per quest', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelectorAll('ul > li')).toHaveLength(3);
+    const lists = compiled.querySelectorAll('ul');
+    expect(lists).toHaveLength(1);
+    expect(lists[0].querySelectorAll(':scope > li')).toHaveLength(3);
+  });
+
+  it('renders with the dark theme on button press', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const view = within(fixture.nativeElement as HTMLElement);
+
+    const darkButton = view.getByRole('button', { name: 'Oscuro' });
+    darkButton.click();
+    await fixture.whenStable();
+    expect(darkButton.getAttribute('aria-pressed')).toBe('true');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
   });
 });

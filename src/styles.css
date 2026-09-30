@@ -1,14 +1,7 @@
-:root {
-  --color-text: #1f2328;
-  --color-text-muted: #59636e;
-  --color-border: #d1d9e0;
-  --color-surface: #ffffff;
-  --color-page: #f6f8fa;
-  --color-pending-bg: #fff4d6;
-  --color-pending-text: #7a4b00;
-  --color-completed: #1a7f37;
-  --color-completed-bg: #dafbe1;
+@import './_primitives.css';
+@import './_semantic.css';
 
+:root {
   font-family: system-ui, sans-serif;
   line-height: 1.5;
   color: var(--color-text);

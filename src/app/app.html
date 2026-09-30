@@ -1,4 +1,23 @@
 <main class="page">
+  <div class="theme-switcher">
+    <button
+      [attr.aria-pressed]="theme.preference() === 'light'"
+      (click)="theme.setPreference('light')"
+      class="button"
+      type="button"
+    >
+      Claro
+    </button>
+    <button
+      [attr.aria-pressed]="theme.preference() === 'dark'"
+      (click)="theme.setPreference('dark')"
+      class="button"
+      type="button"
+    >
+      Oscuro
+    </button>
+  </div>
+
   <h1>{{ title() }}</h1>
 
   <section class="character">

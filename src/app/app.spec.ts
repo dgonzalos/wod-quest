@@ -53,4 +53,37 @@ describe('App', () => {
     expect(darkButton.getAttribute('aria-pressed')).toBe('true');
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
   });
+
+  it('should add 100 XP and hide the button when a quest is completed', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const view = within(fixture.nativeElement as HTMLElement);
+    expect(valueOf(view, 'XP')).toBe('100');
+
+    view.getByRole('button', { name: 'Completar Grace' }).click();
+    await fixture.whenStable();
+
+    expect(valueOf(view, 'XP')).toBe('200');
+    expect(view.queryByRole('button', { name: 'Completar Grace' })).toBeNull();
+    expect(view.getByRole('button', { name: 'Completar Isabel' })).toBeTruthy();
+  });
+
+  it('should reach level 2 after completing Grace and Isabel', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const view = within(fixture.nativeElement as HTMLElement);
+    expect(valueOf(view, 'Nivel')).toBe('1');
+
+    view.getByRole('button', { name: 'Completar Grace' }).click();
+    view.getByRole('button', { name: 'Completar Isabel' }).click();
+    await fixture.whenStable();
+
+    expect(valueOf(view, 'XP')).toBe('300');
+    expect(valueOf(view, 'Nivel')).toBe('2');
+  });
 });
+
+/** Reads the <dd> that follows a <dt> in the character summary. */
+function valueOf(view: ReturnType<typeof within>, term: string): string | undefined {
+  return view.getByText(term).nextElementSibling?.textContent?.trim();
+}

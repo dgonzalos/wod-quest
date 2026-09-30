@@ -42,3 +42,13 @@ p {
   background: var(--color-completed-bg);
   color: var(--color-completed);
 }
+
+.card button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--color-button-bg);
+  color: var(--color-button-text);
+  border: 1px solid var(--color-button-border);
+  cursor: pointer;
+}

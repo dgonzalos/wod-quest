@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { Quest } from '../../core/models';
 import { QuestCard } from './quest-card';
+import { within } from '@testing-library/dom';
 
 describe('QuestCard', () => {
   let fixture: ComponentFixture<QuestCard>;
@@ -41,5 +42,33 @@ describe('QuestCard', () => {
     expect(el.textContent).toContain('Completada');
     expect(el.textContent).not.toContain('Pendiente');
     expect(el.querySelector('article')?.classList).toContain('completed');
+  });
+
+  it('should emit the complete event when the button is clicked', async () => {
+    const spy = vi.fn();
+    fixture.componentInstance.complete.subscribe(spy);
+    const card = within(fixture.nativeElement as HTMLElement);
+
+    const button = card.getByRole('button', { name: 'Completar Grace' });
+    button.click();
+    expect(spy).toHaveBeenCalledWith('grace');
+  });
+
+  it('should not render the button when the quest is completed', async () => {
+    fixture.componentRef.setInput('quest', { ...pendingQuest, state: 'completed' });
+    await fixture.whenStable();
+    const card = within(fixture.nativeElement as HTMLElement);
+
+    const button = card.queryByRole('button', { name: 'Completar Grace' });
+    expect(button).toBeNull();
+  });
+
+  it('should render the button when the quest is pending', async () => {
+    fixture.componentRef.setInput('quest', pendingQuest);
+    await fixture.whenStable();
+
+    const card = within(fixture.nativeElement as HTMLElement);
+    const button = card.getByRole('button', { name: 'Completar Grace' });
+    expect(button).not.toBeNull();
   });
 });

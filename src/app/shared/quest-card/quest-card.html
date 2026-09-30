@@ -1,11 +1,16 @@
-<article class="card" [class.completed]="quest().state === 'completed'">
+<article class="card" [class.completed]="isCompleted()">
   <h3>{{ quest().title }}</h3>
   <p>{{ quest().originalWod }}</p>
   <span class="badge">
-    @if (quest().state === 'pending') {
+    @if (!isCompleted()) {
       ⏳ Pendiente
     } @else {
       ✅ Completada
     }
   </span>
+  @if (!isCompleted()) {
+    <button type="button" [attr.aria-label]="'Completar ' + quest().title" (click)="markComplete()">
+      Completar
+    </button>
+  }
 </article>

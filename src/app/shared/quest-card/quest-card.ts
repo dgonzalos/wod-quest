@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 import type { Quest } from '../../core/models';
 
 @Component({
@@ -9,4 +9,10 @@ import type { Quest } from '../../core/models';
 })
 export class QuestCard {
   readonly quest = input.required<Quest>();
+  readonly complete = output<string>();
+  readonly isCompleted = computed(() => this.quest().state === 'completed');
+
+  markComplete() {
+    this.complete.emit(this.quest().id);
+  }
 }

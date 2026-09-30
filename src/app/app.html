@@ -26,16 +26,16 @@
       <dt>Facción</dt>
       <dd>{{ factionLabels[character.faction] }}</dd>
       <dt>XP</dt>
-      <dd>{{ xp }}</dd>
+      <dd>{{ xp() }}</dd>
       <dt>Nivel</dt>
-      <dd>{{ level }}</dd>
+      <dd>{{ level() }}</dd>
     </dl>
   </section>
 
   <ul class="quest-list" role="list">
-    @for (quest of quests; track quest.id) {
+    @for (quest of quests(); track quest.id) {
       <li>
-        <app-quest-card [quest]="quest" />
+        <app-quest-card [quest]="quest" (complete)="completeQuest($event)" />
       </li>
     }
   </ul>
